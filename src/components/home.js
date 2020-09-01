@@ -112,7 +112,7 @@ class Home extends React.Component {
     return (
       <div className="container z-depth-5">
         <div className="red darken-4  white-text text-darken-4">
-          <h2 class="center-align">To-Do!</h2>
+          <h2 className="center-align">To-Do!</h2>
           <p className="center-align">create new to-do's here!</p>
         </div>
 

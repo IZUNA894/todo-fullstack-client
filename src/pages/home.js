@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Home from "./../components/home";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
@@ -11,6 +11,9 @@ const apiLink =
   process.env.NODE_ENV == "development" ? "http://127.0.0.1:3001" : "";
 
 export default class home extends Component {
+  state = {
+    redirect: null,
+  };
   logout = () => {
     const res = axios
       .get(apiLink + "/api/v1/user/logout")
@@ -20,7 +23,7 @@ export default class home extends Component {
           window.localStorage.setItem("user", "");
           window.localStorage.setItem("token", "");
 
-          window.location.assign("/");
+          this.setState({ redirect: "/" });
         }
       })
       .catch((err) => {
@@ -46,11 +49,14 @@ export default class home extends Component {
 
     user = JSON.parse(user);
     console.log(user);
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />;
+    }
     return (
       <>
         <nav>
           <div className="nav-wrapper">
-            <Link to="#!" className="brand-logo center">
+            <Link to="" className="brand-logo center">
               To Do WebAPP
             </Link>
             <ul className="right hide-on-med-and-down">
@@ -64,7 +70,7 @@ export default class home extends Component {
                 </Link>
               </li>
               <li>
-                <Link to="#!">
+                <Link to="">
                   <span className="right" onClick={this.logout}>
                     Log Out
                   </span>

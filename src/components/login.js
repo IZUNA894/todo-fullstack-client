@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -15,6 +15,7 @@ export default class login extends Component {
     this.state = {
       email: "",
       password: "",
+      redirect: null,
     };
   }
 
@@ -53,7 +54,8 @@ export default class login extends Component {
           });
 
           window.setTimeout(() => {
-            window.location.assign("/home");
+            this.setState({ redirect: "/home" });
+            // window.location.assign("/home");
           }, 1500);
         }
       })
@@ -68,6 +70,9 @@ export default class login extends Component {
       });
   };
   render() {
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />;
+    }
     return (
       <div className="row">
         <div className="col s12 m12">

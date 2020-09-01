@@ -29,10 +29,8 @@ class App extends React.Component {
         });
         return (
           <li className="collection-item" key={item._id}>
-            <p className="">
-              {item.username}
-              <ul className="collection">{body}</ul>
-            </p>
+            <p className="">{item.username}</p>
+            <ul className="collection">{body}</ul>
           </li>
         );
       });

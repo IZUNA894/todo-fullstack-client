@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -13,6 +13,7 @@ export default class signup extends Component {
     username: "",
     password: "",
     confirmPassword: "",
+    redirect: null,
   };
   handleChange = (e) => {
     console.log(e.target.name, e.target.value);
@@ -83,7 +84,7 @@ export default class signup extends Component {
             text: "You Signed Up Successfully",
           });
           window.setTimeout(() => {
-            window.location.assign("/home");
+            this.setState({ redirect: "/home" });
           }, 1500);
         }
       })
@@ -99,6 +100,9 @@ export default class signup extends Component {
   };
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />;
+    }
     return (
       <div className="row">
         <div className="col s12 m12">
